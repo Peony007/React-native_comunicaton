@@ -1,18 +1,49 @@
-import React from 'react';
+import * as React from 'react';
 
-import { Text, View } from 'react-native';
-interface Props {};
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import CreateComponent from './components/CreateComponent';
+import ReadComponent from './components/ReadComponent';
+import UpdateComponent from './components/UpdateComponent';
 
-const App:React.FC<Props> = () => {
+const Stack = createStackNavigator();
+
+const CrudStack:React.FC<any> = () => {
   return (
-    <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <Text>Hello World</Text>
-    </View>
+    <Stack.Navigator
+      screenOptions={{
+          headerStyle: {
+            backgroundColor: 'blue',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      >
+      <Stack.Screen 
+        name="CreateComponent" 
+        component={CreateComponent} 
+        options={{ title: 'Create' }}
+      />
+      <Stack.Screen 
+        name="ReadComponent" 
+        component={ReadComponent} 
+        options={{ title: 'List' }}
+      />
+      <Stack.Screen 
+       name="UpdateComponent" 
+       component={UpdateComponent} 
+       options={{ title: 'Update' }}
+      />
+    </Stack.Navigator>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <NavigationContainer>
+      <CrudStack />
+    </NavigationContainer>
+  );
+}
